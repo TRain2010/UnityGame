@@ -77,7 +77,7 @@ public class CameraControl : MonoBehaviour
         Vector3 locDesiredPos = transform.InverseTransformPoint(m_DesiredPosition);
 
         // find max size
-        for (int i = 0; i < m_Targets.Length; i ++)
+        for (int i = 0; i < m_Targets.Length; i++)
         {
             // check if target is active
             if (!m_Targets[i].gameObject.activeSelf)
@@ -87,7 +87,7 @@ public class CameraControl : MonoBehaviour
             Vector3 locTankPos = transform.InverseTransformPoint(m_Targets[i].position);
             Vector3 tankToCamera = locDesiredPos - locTankPos;
             size = Mathf.Max(size, Mathf.Abs(tankToCamera.y));
-            size = Mathf.Max(size, Mathf.Abs(tankToCamera.x * m_Camera.aspect));
+            size = Mathf.Max(size, Mathf.Abs(tankToCamera.x / m_Camera.aspect));
         }
         size += m_ScreenEdgeBuffer;
         size = Mathf.Max(size, m_MinSize);
