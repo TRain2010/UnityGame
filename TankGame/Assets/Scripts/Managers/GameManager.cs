@@ -89,12 +89,33 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator RoundPlaying()
     {
-        yield return null;
+        EnableTankControl();
+        m_MessageText.text = string.Empty;
+        while (!OneTankLeft())
+        {
+            yield return null;
+        }
+
     }
 
 
     private IEnumerator RoundEnding()
     {
+        DisableTankControl();
+
+        m_RoundWinner = null;
+
+        m_RoundWinner = GetRoundWinner();
+
+        if (m_RoundWinner != null)
+        {
+            m_RoundWinner.m_Wins++;
+        }
+        m_GameWinner = GetGameWinner();
+
+        string message = EndMessage();
+
+        m_MessageText.text = message;
         yield return m_EndWait;
     }
 
